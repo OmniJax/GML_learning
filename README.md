@@ -7,3 +7,4 @@
 下周计划过一下PYG基本用法，搭建模型，用实现GraphConv, GATConv, SAGEConv
 
 test----
+123456
