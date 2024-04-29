@@ -4,7 +4,7 @@
 
 笔记 [DGL中的消息传递函数和聚合函数](./DGL_learning/DGL中的消息传递函数和聚合函数.md)
 
-笔记 [PYG中的消息传递和聚合函数](.\PYG_learning\PYG中的消息传递和聚合函数.md)
+笔记 [PYG中的消息传递和聚合函数](./PYG_learning/PYG中的消息传递和聚合函数.md)
 
 完成了DGL实现DGL实现GraphConv, GATConv, SAGEConv [code](./DGL_learning/week6-DGL实现GraphConv,GATConv,SAGEConv.ipynb)
 
