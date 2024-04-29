@@ -4,7 +4,7 @@
 
 以实现GATConv为例
 
-<img src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427091853080.png" alt="image-20240427091853080" style="zoom: 75%;" /> <img src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427092009473.png" alt="image-20240427092009473" style="zoom: 50%;" />
+<img title="" src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427091853080.png" alt="image-20240427091853080" style="zoom: 75%;" width="755"> <img title="" src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427092009473.png" alt="image-20240427092009473" style="zoom: 50%;" width="304">
 
 以下度均为入度：节点0、1有2个度，节点6有4个度，4个节点度为1
 
@@ -49,7 +49,7 @@ with g.local_scope():
 
  限制 if z.shape[1] == 2 ，只打印度为2的几个节点出来，得到
 
-<img src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427114632419.png" alt="image-20240427114632419" style="zoom:80%;" />
+<img title="" src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427114632419.png" alt="image-20240427114632419" style="zoom:80%;" width="603">
 
 度为2的节点有**2个**，**每个节点**收到（2,4）向量z，收到（2,1）边信息e. 叠在一起就是（2,2,4）和（2,2,1）
 
@@ -68,7 +68,7 @@ with g.local_scope():
 
 假如我们去掉  if z.shape[1] == 2 这个只输出度为2的节点 的限制，那么打印结果如下，符合预期
 
-<img src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427132749280.png" alt="image-20240427132749280" style="zoom: 80%;" />
+<img title="" src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427132749280.png" alt="image-20240427132749280" style="zoom: 80%;" width="452">
 
 然而得到某节点的attention，即$\alpha$有更加快捷的方式（我后来才知道）
 
@@ -84,13 +84,9 @@ print(alpha)
 
 这里的edge_softmax会自动将属于同一目的节点的边上的信息进行softmax，也就省去了在聚合函数里面的那一系列操作。
 
-<img src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427143200763.png" alt="image-20240427143200763" style="zoom:80%;" />
+<img title="" src="markdown.assets/DGL中的消息传递函数和聚合函数.assets/image-20240427143200763.png" alt="image-20240427143200763" style="zoom:80%;" width="929">
 
 对比自己实现的GAT层和DGL内置的GAT层，输出结果以及注意力权重一样（W和a都初始化为1）
-
-
-
-
 
 当然也可以在用edge_softmax得到attention值后，对边进行复制，然后使用内置的消息函数和求和函数
 
@@ -122,4 +118,5 @@ with g.local_scope():
 ```
 
 输出的结果与之前完全相同！！
+
 
