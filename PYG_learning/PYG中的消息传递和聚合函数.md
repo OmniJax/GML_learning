@@ -47,6 +47,8 @@ class TestLayer(MessagePassing):
 
 以上为ChatGPT说的，验证一下
 
+<img title="" src="https://pic4.zhimg.com/v2-7ee1b87bb1bad067bdc5f069b945313b_r.jpg" alt="" width="749">
+
 定义图
 
 ```python
@@ -137,7 +139,81 @@ message返回值是aggreate的第一个参数，以及最初传递给 propagate(
 
 <img src="markdown.assets/PYG中的消息传递和聚合函数.assets/2024-04-30-00-28-27-image.png" title="" alt="" width="805">
 
-aggregate返回值是update的第一个参数，以及最初传递给 propagate() 的**所有**参数，本例子就是edge_index, x, hw。
-并且aggregate的返回值会回到forward中调用的self.propagate。
+类初始化时，\_\_init\_\_(aggr='add')选择**自带聚合器**。这里分为以下几种情况
 
-<img src="https://pic4.zhimg.com/v2-7ee1b87bb1bad067bdc5f069b945313b_r.jpg" title="" alt="" width="823">
+1. 如果类中没重写message，那么forward中的self.propagate中的x，将传入**自带聚合器**进行聚合；
+
+2. 如果类中重写了message，没重写aggregate，那么aggregate的返回值传入**自带聚合器**进行聚合；
+
+3. 如果重写了aggregate没重写update，那么aggregate返回值直接传给forward中的self.propagate；
+
+4. 如果重写了update，那么aggregate的返回值传给update，进行自定义处理方式后，update返回值进而传给forward中的self.propagate。
+
+如下图所示。
+
+<img title="" src="https://pic4.zhimg.com/v2-7ee1b87bb1bad067bdc5f069b945313b_r.jpg" alt="" width="833">
+
+aggregate返回值是update的第一个参数，以及最初传递给 propagate() 的**所有**参数，本例子就是edge_index, x, hw。并且aggregate也可以在参数后加上 _i 或 _j 来表示dst或src。本例子中，aggregate将hwi+hwj传给了update。
+
+如果要自定义实现聚合函数，那就要用到torch_scatter.scatter
+
+<img src="markdown.assets/PYG中的消息传递和聚合函数.assets/2024-04-30-14-28-39-image.png" title="" alt="" width="770">
+
+```python
+    def update(self, ijsum, edge_index, num_nodes):
+        # print("in update")
+        # print("hw_i+hw_j\n", ijsum)
+        h = scatter(
+            src=ijsum, index=edge_index[1], dim=0, reduce="sum", dim_size=num_nodes
+        )
+        # print("h\n", h)
+        e=data.edge_attr
+        # print('e\n',e)
+        alpha= edge_softmax(e,edge_index[1],num_nodes=num_nodes)
+        # print('alpha\n',alpha)
+        # print("----------------------------------")
+        return h
+```
+
+scatter中，dim=0因为特征是行向量，dim_size=num_nodes，因为有些节点并没有输入。这里让hwi+hwj顺着边进行聚合得到h，然后返回给forward中的self.propagate
+
+这里还使用了torch_geometric.utils.softmax (as edge_softmax)，来对指向同一dst的边进行softmax，类似GAT的一个步骤。
+
+打印输出如下
+
+<img src="markdown.assets/PYG中的消息传递和聚合函数.assets/2024-04-30-14-35-26-image.png" title="" alt="" width="688">
+
+```python
+    def forward(self, edge_index, x, edge_attr, get_attention=False):
+        edge_index, edge_attr = remove_self_loops(edge_index, edge_attr)
+        edge_index, edge_attr = add_self_loops(
+            edge_index, edge_attr, fill_value="mean", num_nodes=x.shape[0]
+        )
+
+        edge_attr = edge_attr.view(-1, self.edge_dim)
+        wx = x @ self.w_node
+        we = edge_attr @ self.w_edge
+        alpha = self.edge_updater(edge_index, wx=wx, we=we)
+
+        out = self.propagate(edge_index, wx=wx, alpha=alpha)
+
+        if get_attention:
+            return out, alpha
+        else:
+            return out
+
+    def edge_update(self, wx_i, wx_j, we, edge_index):
+        wx_iatt = wx_i @ self.att_self
+        wx_jatt = wx_j @ self.att_neih
+        weatt = we @ self.att_edge
+
+        e = wx_iatt + wx_jatt + weatt
+        e = F.leaky_relu(e)
+
+        alpha = edge_softmax(e, edge_index[1])
+        return alpha
+```
+
+这里展示了GAT层的部分代码，forward中调用了edge_updater函数，edge_updater会将参数传给需要我们重写的edge_update函数。edge_updater与propagate类似，会将参数x拆分为x_i和x_j
+
+<img src="markdown.assets/PYG中的消息传递和聚合函数.assets/2024-05-01-00-34-33-image.png" title="" alt="" width="733">
