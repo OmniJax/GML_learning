@@ -8,7 +8,10 @@
 
 笔记 [PYG中的消息传递和聚合函数](./PYG_learning/PYG中的消息传递和聚合函数.md)
 
-完成了DGL实现DGL实现GraphConv, GATConv, SAGEConv [code](./DGL_learning/week6-DGL实现GraphConv,GATConv,SAGEConv.ipynb)
+完成了DGL实现GraphConv, GATConv, SAGEConv [code](./DGL_learning/week6-DGL实现GraphConv,GATConv,SAGEConv.ipynb)
+
+完成了PYG实现GraphConv, GATConv, SAGEConv [code](./PYG_learning/week6-PYG实现GraphConv,GATConv,SAGEConv.ipynb)
+
 
 ## 2024.4.26
 
