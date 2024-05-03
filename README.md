@@ -1,6 +1,6 @@
 # GML_learning
 
-## this week
+## 2024.5.3
 
 学习了PYG和DGL中自定义消息传递，聚合。
 
