@@ -2,7 +2,12 @@
 
 ## this week
 
-[week7-DGL](./DGL_learning/week7-DGL.ipynb)
+完成week7，在DGL上实现节点和链接分类demo：[week7-DGL](./DGL_learning/week7-DGL.ipynb)，在PYG上实现链接和图分类demo：[week7-PYG](./PYG_learning/week7-PYG.ipynb)
+
+
+
+
+
 
 
 ## 2024.5.3
@@ -16,7 +21,6 @@
 完成了DGL实现GraphConv, GATConv, SAGEConv [code](./DGL_learning/week6-DGL实现GraphConv,GATConv,SAGEConv.ipynb)
 
 完成了PYG实现GraphConv, GATConv, SAGEConv [code](./PYG_learning/week6-PYG实现GraphConv,GATConv,SAGEConv.ipynb)
-
 
 ## 2024.4.26
 
