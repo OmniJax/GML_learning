@@ -1,5 +1,10 @@
 # GML_learning
 
+## this week
+
+[week7-DGL](./DGL_learning/week7-DGL.ipynb)
+
+
 ## 2024.5.3
 
 学习了PYG和DGL中自定义消息传递，聚合。
