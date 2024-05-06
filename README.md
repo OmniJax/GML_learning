@@ -4,7 +4,7 @@
 
 完成week7，在DGL上实现节点和链接分类demo：[week7-DGL](./DGL_learning/week7-DGL.ipynb)，在PYG上实现链接和图分类demo：[week7-PYG](./PYG_learning/week7-PYG.ipynb)
 
-了解了HAN原理，看了眼GammaGL和OpenHGNN里HAN源代码。GammaGL中使用TensorLayerX来搭建模型，它的backend可以是torch，tensorflow，paddle。tensorlayerx用起来还是与torch有相似之处的，比如tlx.nn.Linear之类的
+了解了HAN和RGCN原理，看了眼GammaGL和OpenHGNN里HAN源代码。GammaGL中使用TensorLayerX来搭建模型，它的backend可以是torch，tensorflow，paddle。tensorlayerx用起来还是与torch有相似之处的，比如tlx.nn.Linear之类的
 
 - [x] HAN
 
