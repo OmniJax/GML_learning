@@ -4,11 +4,11 @@
 
 完成week7，在DGL上实现节点和链接分类demo：[week7-DGL](./DGL_learning/week7-DGL.ipynb)，在PYG上实现链接和图分类demo：[week7-PYG](./PYG_learning/week7-PYG.ipynb)
 
+了解了HAN原理，看了眼GammaGL和OpenHGNN里HAN源代码。GammaGL中使用TensorLayerX来搭建模型，它的backend可以是torch，tensorflow，paddle。tensorlayerx用起来还是与torch有相似之处的，比如tlx.nn.Linear之类的
 
+- [x] HAN
 
-
-
-
+- [x] GGL
 
 ## 2024.5.3
 
@@ -27,3 +27,9 @@
 在DGL官网上跟着[A Blitz Introduction to DGL](https://docs.dgl.ai/tutorials/blitz/index.html)做完了6个chapter，了解了DGL基本用法，包括如何自定义模型，mess_func和reduce_func。用DGL实现GraphConv, GATConv, SAGEConv，即[week5](https://colab.research.google.com/drive/1xSMe9xdEN6EziexnhnYghEXIlPbTC9B5?usp=sharing)和[week6](https://colab.research.google.com/drive/1xSMe9xdEN6EziexnhnYghEXIlPbTC9B5?usp=sharing)(week6的GAT和SAGE还正在写)
 
 下周计划过一下PYG基本用法，搭建模型，用实现GraphConv, GATConv, SAGEConv
+
+## 2024.4.19
+
+过了一遍pytorch基本用法，搭建了一个UNet网络跑了一下。
+
+看了deepwalk论文，了解了GCN，GAT，GraphSAGE实现原理
