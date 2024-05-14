@@ -119,12 +119,6 @@ with g.local_scope():
 
 输出的结果与之前完全相同！！
 
-
-
-
-
-
-
 2024.5.1补充
 
 之前没有考虑过会出现某节点入度为0的情况，这里PYG和DGL都采用了add_self_loops的方法
@@ -134,8 +128,6 @@ where $\mathcal{N}(i)$ is the set of its one-hop neighbors (to include $v_i$ i
 并且当存在入度为0的节点时，DGL自带的GATConv会报错：
 
 - DGLError: There are 0-in-degree nodes in the graph, output for those nodes will be invalid. This is harmful for some applications, causing silent performance regression. Adding self-loop on the input graph by calling `g = dgl.add_self_loop(g)` will resolve the issue. Setting `allow_zero_in_degree` to be `True` when constructing this module will suppress the check and let the code run.
-
-
 
 这里add_self_loop是直接无脑加，所以可以先去掉self_loop
 
