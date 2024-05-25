@@ -1,6 +1,16 @@
 # GML_learning
 
-## this week
+接下来开始在OpenHGNN上复现HGMAE模型
+
+## 2024.5.24
+
+看了一遍openhgnn的pipeline，自己实现了RGCN。读完论文，了解了HGMAE模型基本流程。正在看论文官方源码。
+
+## 2024.5.17
+
+了解了dgl异质图消息传递过程，实现了自定义的messgefunc，reducedfunc，apply_edge
+
+## 2024.5.10
 
 完成week7，在DGL上实现节点和链接分类demo：[week7-DGL](./DGL_learning/week7-DGL.ipynb)，在PYG上实现链接和图分类demo：[week7-PYG](./PYG_learning/week7-PYG.ipynb)
 
